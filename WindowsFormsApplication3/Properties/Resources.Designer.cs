@@ -63,6 +63,16 @@ namespace WindowsFormsApplication3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _99x61_doar_assina {
+            get {
+                object obj = ResourceManager.GetObject("99x61-doar-assina", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bar_blue {
             get {
                 object obj = ResourceManager.GetObject("bar_blue", resourceCulture);
@@ -116,6 +126,16 @@ namespace WindowsFormsApplication3.Properties {
         internal static System.Drawing.Bitmap bar_yellow {
             get {
                 object obj = ResourceManager.GetObject("bar_yellow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eoq {
+            get {
+                object obj = ResourceManager.GetObject("eoq", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

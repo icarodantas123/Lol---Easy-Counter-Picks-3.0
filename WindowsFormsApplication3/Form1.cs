@@ -19,6 +19,9 @@ namespace WindowsFormsApplication3
         public Form1()
         {
             InitializeComponent();
+            WebClient client = new WebClient();
+            client.DownloadStringCompleted += versao_completed;
+            client.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/versao.txt"));
             System.IO.StreamReader file = new System.IO.StreamReader("champs.txt");
             string line;
             int x = 12, y = 38;
@@ -45,6 +48,17 @@ namespace WindowsFormsApplication3
             }
         }
 
+        private void versao_completed(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if(e.Error == null)
+            {
+                if (e.Result != "3.0.1")
+                {
+                    linkLabel1.Text = ">>>> Atualização disponível! " + e.Result;
+                }
+            }
+        }
+
         private void champion_button_click(object sender, EventArgs e)
         {
             Button but = (Button)sender;
@@ -63,26 +77,41 @@ namespace WindowsFormsApplication3
             else
             {
                 string htmlCode = e.Result, temp;
-                panel1.Visible = true;
                 int index = 0;
                 index = htmlCode.IndexOf("<head><title>", index) + 13;
                 label30.Text = (htmlCode.Substring(index, htmlCode.IndexOf(" Counter", index) - index));
+
                 index = 3000;
                 index = htmlCode.IndexOf("text-anchor=\"end\">", index) + 18;
-                pictureBox2.Width = Convert.ToInt32(htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index))*20;
+                temp = htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index);
+                label31.Width = Convert.ToInt32(temp)*20;
+                label31.Text = temp + "/10";
+
                 index += 100;
                 index = htmlCode.IndexOf("text-anchor=\"end\">", index) + 18;
-                pictureBox3.Width = Convert.ToInt32(htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index)) * 20;
+                temp = htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index);
+                label32.Width = Convert.ToInt32(temp) * 20;
+                label32.Text = temp + "/10";
                 index += 100;
+
                 index = htmlCode.IndexOf("text-anchor=\"end\">", index) + 18;
-                pictureBox4.Width = Convert.ToInt32(htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index)) * 20;
+                temp = htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index);
+                label33.Width = Convert.ToInt32(temp) * 20;
+                label33.Text = temp + "/10";
                 index += 100;
+
                 index = htmlCode.IndexOf("text-anchor=\"end\">", index) + 18;
-                pictureBox5.Width = Convert.ToInt32(htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index)) * 20;
+                temp = htmlCode.Substring(index, htmlCode.IndexOf('/', index) - index);
+                label34.Width = Convert.ToInt32(temp) * 20;
+                label34.Text = temp + "/10";
                 index += 1200;
-                index = htmlCode.IndexOf("text-anchor=\"end\">", index) + 18;
-                label26.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
+
+                index = htmlCode.IndexOf("text-anchor=\"end\">#", index) + 19;
+                temp = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
+                label26.Text =  '#' + temp;
+                label26.Width = Convert.ToInt32(((championButtons.Length - Convert.ToDouble(temp)) / championButtons.Length) * 200);
                 index += 100;
+
                 index = htmlCode.IndexOf("text-anchor=\"end\">", index) + 18;
                 label24.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 label24.Width = Convert.ToInt32(htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index))*2;
@@ -186,6 +215,7 @@ namespace WindowsFormsApplication3
                 button14.Image = Image.FromFile(@"champs60\" + temp + ".png");
                 button14.AccessibleName = temp;
 
+
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label15.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
@@ -214,11 +244,7 @@ namespace WindowsFormsApplication3
                 button18.Image = Image.FromFile(@"champs60\" + temp + ".png");
                 button18.AccessibleName = temp;
 
-
-
-
-
-
+                panel1.Visible = true;
             }
         }
 
@@ -233,6 +259,11 @@ namespace WindowsFormsApplication3
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void doação(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://pag.ae/bmcgCZ1");
         }
 
         private void label19_Click(object sender, EventArgs e)
@@ -255,5 +286,24 @@ namespace WindowsFormsApplication3
 
         }
 
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = false;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://loleasycounterpicks.blogspot.com.br/");
+        }
     }
 }
