@@ -88,6 +88,7 @@
             this.pictureBox19 = new System.Windows.Forms.PictureBox();
             this.pictureBox20 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox21 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -109,6 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
             this.SuspendLayout();
             // 
             // linkLabel1
@@ -134,6 +136,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pictureBox21);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.pictureBox20);
             this.panel1.Controls.Add(this.pictureBox19);
@@ -822,6 +825,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // pictureBox21
+            // 
+            this.pictureBox21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox21.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox21.Location = new System.Drawing.Point(12, 216);
+            this.pictureBox21.Name = "pictureBox21";
+            this.pictureBox21.Size = new System.Drawing.Size(463, 345);
+            this.pictureBox21.TabIndex = 84;
+            this.pictureBox21.TabStop = false;
+            this.pictureBox21.Click += new System.EventHandler(this.pictureBox21_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -857,6 +871,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -923,6 +938,7 @@
         private System.Windows.Forms.PictureBox pictureBox16;
         private System.Windows.Forms.PictureBox pictureBox15;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox pictureBox21;
     }
 }
 

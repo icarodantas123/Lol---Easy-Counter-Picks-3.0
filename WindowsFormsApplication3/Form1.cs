@@ -21,6 +21,9 @@ namespace WindowsFormsApplication3
         {
             InitializeComponent();
             WebClient client = new WebClient();
+            WebClient client2 = new WebClient();
+            client2.DownloadStringCompleted += new DownloadStringCompletedEventHandler(patrocinador);
+            client2.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/patrocinador"));
             client.DownloadStringCompleted += versao_completed;
             client.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/versao.txt"));
             System.IO.StreamReader file = new System.IO.StreamReader("champs.txt");
@@ -49,6 +52,21 @@ namespace WindowsFormsApplication3
                 }
                 championQtyButtons++;
             }
+        }
+
+        private void patrocinador(object sender, DownloadStringCompletedEventArgs e)
+        {
+            pictureBox21.LoadAsync(e.Result);
+            WebClient client = new WebClient();
+            client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(patrocinador_link);
+            client.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/patrocinador_link"));
+        }
+
+        string patrocinadorUrl;
+
+        private void patrocinador_link(object sender, DownloadStringCompletedEventArgs e)
+        {
+            patrocinadorUrl = e.Result;
         }
 
         private void versao_completed(object sender, DownloadStringCompletedEventArgs e)
@@ -315,6 +333,16 @@ namespace WindowsFormsApplication3
         {
             Button but = (Button)sender;
             System.Diagnostics.Process.Start("http://br.op.gg/champion/" + but.AccessibleName + "/statistics/mid");
+        }
+
+        private void label35_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox21_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(patrocinadorUrl);
         }
     }
 }
