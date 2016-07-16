@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication3
@@ -12,7 +13,7 @@ namespace WindowsFormsApplication3
     public partial class Form1 : Form
     {
 
-        private Button[] championButtons = new Button[300];
+        private PictureBox[] championButtons = new PictureBox[300];
 
         private int championQtyButtons = 0;
 
@@ -27,12 +28,14 @@ namespace WindowsFormsApplication3
             int x = 12, y = 38;
             while ((line = file.ReadLine()) != null)
             {
-                championButtons[championQtyButtons] = new Button();
+                championButtons[championQtyButtons] = new PictureBox();
                 championButtons[championQtyButtons].Location = new Point(x, y);
+                championButtons[championQtyButtons].TabStop = false;
                 championButtons[championQtyButtons].Width = 60;
                 championButtons[championQtyButtons].Height = 60;
                 championButtons[championQtyButtons].Image = Image.FromFile(@"champs60\" + line + ".png");
                 championButtons[championQtyButtons].AccessibleName = line;
+                championButtons[championQtyButtons].Cursor = Cursors.Hand;
                 championButtons[championQtyButtons].Click += champion_button_click;
                 this.Controls.Add(championButtons[championQtyButtons]);
                 if(x != 1200)
@@ -61,12 +64,14 @@ namespace WindowsFormsApplication3
 
         private void champion_button_click(object sender, EventArgs e)
         {
-            Button but = (Button)sender;
+            PictureBox but = (PictureBox)sender;
             WebClient cliente = new WebClient();
             cliente.DownloadStringCompleted += new DownloadStringCompletedEventHandler(string_downloaded);
             cliente.DownloadStringAsync(new Uri("http://www.championcounter.com/" + but.AccessibleName));
             pictureBox1.Image = Image.FromFile(@"champs120\" + but.AccessibleName + ".png");
+            button1.AccessibleName = but.AccessibleName;
         }
+
 
         private void string_downloaded(object sender, DownloadStringCompletedEventArgs e)
         {
@@ -121,128 +126,128 @@ namespace WindowsFormsApplication3
                 label1.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button1.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button1.AccessibleName = temp;
+                pictureBox3.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox3.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label2.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button2.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button2.AccessibleName = temp;
+                pictureBox4.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox4.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label3.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button3.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button3.AccessibleName = temp;
+                pictureBox5.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox5.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label4.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button4.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button4.AccessibleName = temp;
+                pictureBox6.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox6.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label5.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button5.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button5.AccessibleName = temp;
+                pictureBox7.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox7.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label6.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button6.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button6.AccessibleName = temp;
+                pictureBox8.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox8.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label7.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button7.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button7.AccessibleName = temp;
+                pictureBox9.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox9.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label8.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button8.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button8.AccessibleName = temp;
+                pictureBox10.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox10.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label9.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button9.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button9.AccessibleName = temp;
+                pictureBox11.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox11.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label10.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button10.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button10.AccessibleName = temp;
+                pictureBox12.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox12.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label11.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button11.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button11.AccessibleName = temp;
+                pictureBox13.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox13.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label12.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button12.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button12.AccessibleName = temp;
+                pictureBox14.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox14.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label13.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button13.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button13.AccessibleName = temp;
+                pictureBox15.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox15.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label14.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button14.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button14.AccessibleName = temp;
+                pictureBox16.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox16.AccessibleName = temp;
 
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label15.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button15.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button15.AccessibleName = temp;
+                pictureBox17.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox17.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label16.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button16.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button16.AccessibleName = temp;
+                pictureBox18.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox18.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label17.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button17.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button17.AccessibleName = temp;
+                pictureBox19.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox19.AccessibleName = temp;
 
                 index = htmlCode.IndexOf("class=\"entity\"><h4>", index) + 19;
                 label18.Text = htmlCode.Substring(index, htmlCode.IndexOf('<', index) - index);
                 index = htmlCode.IndexOf("images/champions/", index) + 17;
                 temp = htmlCode.Substring(index, htmlCode.IndexOf('.', index) - index);
-                button18.Image = Image.FromFile(@"champs60\" + temp + ".png");
-                button18.AccessibleName = temp;
+                pictureBox20.Image = Image.FromFile(@"champs60\" + temp + ".png");
+                pictureBox20.AccessibleName = temp;
 
                 panel1.Visible = true;
             }
@@ -252,7 +257,7 @@ namespace WindowsFormsApplication3
         {
             for(int i=0;i<championQtyButtons;i++)
             {
-                championButtons[i].Enabled = championButtons[i].AccessibleName.StartsWith(textBox1.Text);
+                championButtons[i].Visible = championButtons[i].AccessibleName.StartsWith(textBox1.Text);
             }
         }
 
@@ -304,6 +309,12 @@ namespace WindowsFormsApplication3
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://loleasycounterpicks.blogspot.com.br/");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Button but = (Button)sender;
+            System.Diagnostics.Process.Start("http://br.op.gg/champion/" + but.AccessibleName + "/statistics/mid");
         }
     }
 }
