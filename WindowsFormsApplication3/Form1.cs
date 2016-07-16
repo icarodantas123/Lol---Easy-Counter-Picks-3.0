@@ -5,8 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace WindowsFormsApplication3
 {
@@ -20,12 +20,16 @@ namespace WindowsFormsApplication3
         public Form1()
         {
             InitializeComponent();
-            WebClient client = new WebClient();
+            /*WebClient client = new WebClient();
             WebClient client2 = new WebClient();
             client2.DownloadStringCompleted += new DownloadStringCompletedEventHandler(patrocinador);
             client2.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/patrocinador"));
             client.DownloadStringCompleted += versao_completed;
             client.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/versao.txt"));
+            */
+            WebClient client = new WebClient();
+            client.DownloadStringCompleted += new  DownloadStringCompletedEventHandler(xmldocument_downloaded);
+            client.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/lolecpdata.xml"));
             System.IO.StreamReader file = new System.IO.StreamReader("champs.txt");
             string line;
             int x = 12, y = 38;
@@ -54,22 +58,41 @@ namespace WindowsFormsApplication3
             }
         }
 
+        private void xmldocument_downloaded(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if(e.Error == null)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(e.Result);
+                string newVersion = doc.DocumentElement.SelectSingleNode("/data/version").Attributes["version"].Value;
+                pictureBox21.LoadAsync(doc.DocumentElement.SelectSingleNode("/data/banner_image").Attributes["image"].Value);
+                patrocinadorUrl = doc.DocumentElement.SelectSingleNode("/data/banner_link").Attributes["link"].Value;
+                if (newVersion != "3.0.1")
+                {
+                    linkLabel1.Text = ">>>> Atualização disponível! " + newVersion;
+                }
+            }
+        }
+
+        /*
         private void patrocinador(object sender, DownloadStringCompletedEventArgs e)
         {
             pictureBox21.LoadAsync(e.Result);
             WebClient client = new WebClient();
             client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(patrocinador_link);
             client.DownloadStringAsync(new Uri("http://arquivosparadownload.mygamesonline.org/patrocinador_link"));
-        }
+            
+        }*/
 
         string patrocinadorUrl;
 
-        private void patrocinador_link(object sender, DownloadStringCompletedEventArgs e)
+        /*private void patrocinador_link(object sender, DownloadStringCompletedEventArgs e)
         {
             patrocinadorUrl = e.Result;
         }
+        */
 
-        private void versao_completed(object sender, DownloadStringCompletedEventArgs e)
+        /*private void versao_completed(object sender, DownloadStringCompletedEventArgs e)
         {
             if(e.Error == null)
             {
@@ -79,6 +102,7 @@ namespace WindowsFormsApplication3
                 }
             }
         }
+        */
 
         private void champion_button_click(object sender, EventArgs e)
         {
@@ -342,7 +366,10 @@ namespace WindowsFormsApplication3
 
         private void pictureBox21_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(patrocinadorUrl);
+            if(patrocinadorUrl != "")
+            {
+                System.Diagnostics.Process.Start(patrocinadorUrl);
+            }
         }
     }
 }
